@@ -23,13 +23,13 @@ import {HttpModule} from '@angular/http';
 import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SocketIoModule, SocketIoConfig} from 'ngx-socket-io';
-import {CustomModalComponent} from './dialog/dialogcomponent';
 
 import {TableserviceService} from '../app/admin/tables/tableservice.service';
 
 import {ModalDialogModule} from 'ngx-modal-dialog';
-import {CKEditorModule} from 'ngx-ckeditor';
-
+import { MyDatePickerModule } from 'mydatepicker';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {DropdownModule} from "ngx-dropdown";
 //import {SocialLoginModule, AuthServiceConfig} from "angular4-social-login";
 //import {GoogleLoginProvider, FacebookLoginProvider} from "angular4-social-login";
 
@@ -43,7 +43,7 @@ import {CKEditorModule} from 'ngx-ckeditor';
 ////        provider: new FacebookLoginProvider("Facebook-App-Id")
 ////    }
 //]);
-const config: SocketIoConfig = {url: 'http://192.168.1.234:4000', options: {}};
+const config: SocketIoConfig = {url: 'http://192.168.1.234:3000', options: {}};
 @NgModule({
     declarations: [
         AppComponent,
@@ -53,7 +53,6 @@ const config: SocketIoConfig = {url: 'http://192.168.1.234:4000', options: {}};
         StarterContentComponent,
         StarterFooterComponent,
         StarterControlSidebarComponent,
-        CustomModalComponent
     ],
     imports: [
         BrowserModule,
@@ -61,7 +60,10 @@ const config: SocketIoConfig = {url: 'http://192.168.1.234:4000', options: {}};
         AdminModule,
         FormsModule,
         HttpModule,
-        CKEditorModule,
+        MyDatePickerModule,
+        FormsModule,
+        NgbModule.forRoot(),
+        ReactiveFormsModule,
         BrowserAnimationsModule,
         ToastrModule.forRoot({
             timeOut: 1000,
@@ -69,10 +71,11 @@ const config: SocketIoConfig = {url: 'http://192.168.1.234:4000', options: {}};
         }),
         SocketIoModule.forRoot(config),
         ModalDialogModule.forRoot(),
+        DropdownModule
         //        SocialLoginModule.initialize(configer)
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    entryComponents: [CustomModalComponent],
+    entryComponents: [],
     providers: [ittpCommonService, TableserviceService],
     bootstrap: [AppComponent]
 })

@@ -6,20 +6,25 @@ import {AdminContentComponent} from './admin-content/admin-content.component';
 import {AdminLeftSideComponent} from './admin-left-side/admin-left-side.component';
 import {AdminHeaderComponent} from './admin-header/admin-header.component';
 import {AdminComponent} from './admin.component';
-import {NgModule} from '@angular/core';
+import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {AdminDashboard2Component} from './admin-dashboard2/admin-dashboard2.component';
 import {LoginComponent} from './login/login.component';
 import {TablesComponent} from './tables/tables.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { RecordComponent } from './record/record.component';
-import { TablesdataComponent } from './tablesdata/tablesdata.component';
+import {RecordComponent} from './record/record.component';
+import {TablesdataComponent} from './tablesdata/tablesdata.component';
+import {DropdownModule} from "ngx-dropdown";
+import {MyDatePickerModule} from 'mydatepicker';
+import {ModalComponent} from './modal/modal.component';
 
 @NgModule({
     imports: [
         CommonModule,
         AdminRoutingModule,
-        FormsModule
+        FormsModule,
+        DropdownModule,
+        MyDatePickerModule
     ],
     declarations: [
         AdminComponent,
@@ -33,9 +38,15 @@ import { TablesdataComponent } from './tablesdata/tablesdata.component';
         LoginComponent,
         TablesComponent,
         RecordComponent,
-        TablesdataComponent
+        TablesdataComponent,
+        ModalComponent
     ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
     exports: [AdminComponent],
     providers: [],
+    entryComponents: [
+        ModalComponent,
+    ]
 })
 export class AdminModule {}

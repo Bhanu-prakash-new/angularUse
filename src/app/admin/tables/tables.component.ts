@@ -7,6 +7,8 @@ import {TableserviceService} from './tableservice.service';
 import {ModalDialogService} from 'ngx-modal-dialog';
 import {CustomModalComponent} from '../../dialog/dialogcomponent';
 import {ViewContainerRef} from '@angular/core';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
     selector: 'app-tables',
     templateUrl: './tables.component.html',
@@ -17,23 +19,45 @@ export class TablesComponent implements OnInit {
     showproducts = [];
     documentSelected = [];
     orderedProducts = [];
-    constructor(public htpservice: ittpCommonService, private toastr: ToastrService, private tableserv: TableserviceService, public socket: Socket, private modalService: ModalDialogService, private viewContainer: ViewContainerRef) {}
+    closeResult;
+
+    constructor(public htpservice: ittpCommonService, private toastr: ToastrService, private tableserv: TableserviceService, public socket: Socket, private viewContainer: ViewContainerRef, private modalService: NgbModal) {}
     componentcalling() {
         this.tableserv.updateheader('data seteed');
     }
+    open(content) {
+          console.log('hi')
+        this.modalService.open(content,{ centered: true }).result.then((result) => {
+            console.log('hi')
+            this.closeResult = `Closed with: ${result}`;
+        }, (reason) => {
+            console.log('hi')
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
+
+    }
+    private getDismissReason(reason: any): string {
+        if (reason === ModalDismissReasons.ESC) {
+            return 'by pressing ESC';
+        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+            return 'by clicking on a backdrop';
+        } else {
+            return `with: ${reason}`;
+        }
+    }
     addproduct() {
-//        console.log('going')
-//        this.modalService.openDialog(this.viewContainer, {
-//            title: 'Simple dialog',
-//            childComponent: CustomModalComponent,
-//            settings: {
-//                closeButtonClass: 'close theme-icon-close'
-//            },
-//            data: {
-//                text: 'Some text content'
-//            }
-//        });
-//        this.componentcalling();
+        //        console.log('going')
+        //        this.modalService.openDialog(this.viewContainer, {
+        //            title: 'Simple dialog',
+        //            childComponent: CustomModalComponent,
+        //            settings: {
+        //                closeButtonClass: 'close theme-icon-close'
+        //            },
+        //            data: {
+        //                text: 'Some text content'
+        //            }
+        //        });
+        //        this.componentcalling();
         console.log(this.product, 'fine see')
         let formData: FormData = new FormData();
         formData.append('productname', this.product.productname);

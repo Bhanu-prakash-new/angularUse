@@ -2,9 +2,29 @@
     .selected{
         border:1px solid blue;
     }
+    .fade{
+        opacity: 1 !important;
+    }
+    .show{
+        opacity:1 !important;
+    }
 </style>
 <div class="content-wrapper" style="max-height:610px;overflow-y: auto">
     <!-- Content Header (Page header) -->
+    <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title">Modal title</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>One fine body&hellip;</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+        </div>
+    </ng-template>
     <section class="content-header">
         <h1>
             Dashboard
@@ -17,13 +37,13 @@
     </section>
     <div class="col-md-12">
         <div class="col-md-6">
-            <!-- general form elements -->
+            <!--general form elements--> 
             <div class="box box-primary">
-                <!--            <div class="box-header with-border">
-                                <h3 class="box-title">Quick Example</h3>
-                            </div>-->
-                <!-- /.box-header -->
-                <!-- form start -->
+                <div class="box-header with-border">
+                    <h3 class="box-title">Quick Example</h3>
+                </div>
+                <!--/.box-header--> 
+                <!--form start--> 
                 <div class="box-body">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Product name</label>
@@ -40,7 +60,7 @@
                         <p class="help-block">Example block-level help text here.</p>
                     </div>
                 </div>
-                <!-- /.box-body -->
+                <!--/.box-body--> 
 
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary"  (click)="addproduct()">Submit</button>
@@ -72,11 +92,34 @@
                     <h3 class="box-title">Ordered Products</h3>
                 </div>
                 <div class="box-body">
-                    <ul >
+                    <ngb-carousel *ngIf="orderedProducts.length > 0">
+                        <ng-template ngbSlide *ngFor="let item of orderedProducts; let i = index;trackBy: trackByprodFn;" >
+                            <img [src]="item.document_url" alt="Random first slide">
+                            <div class="carousel-caption">
+                                <h3>10 seconds between slides...</h3>
+                                <p>This carousel uses customized default values.</p>
+                            </div>
+                        </ng-template>
+<!--                        <ng-template ngbSlide>
+                            <img [src]="images[1]"  alt="Random second slide">
+                            <div class="carousel-caption">
+                                <h3>No keyboard...</h3>
+                                <p>This carousel uses customized default values.</p>
+                            </div>
+                        </ng-template>
+                        <ng-template ngbSlide>
+                            <img [src]="images[2]" alt="Random third slide">
+                            <div class="carousel-caption">
+                                <h3>And no wrap after last slide.</h3>
+                                <p>This carousel uses customized default values.</p>
+                            </div>
+                        </ng-template>-->
+                    </ngb-carousel>
+<!--                    <ul >
                         <li *ngFor="let item of orderedProducts; let i = index;trackBy: trackByprodFn;" class="{{documentSelected.indexOf(item.id) > -1 ? 'selected':''}}" (click)="selectdocuments(item.id)" style="width:10%;display:inline-block;list-style-type: none;">
                             <img src="{{item.document_url}}" width="50" height="40">
                         </li>
-                    </ul>
+                    </ul>-->
                 </div>
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary"  (click)="removeOrderedProduct()">Remove</button>
@@ -85,4 +128,8 @@
             </div>
         </div>
     </div>
+    <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
+    <!--<ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next"></ngb-datepicker>-->
+
+
 </div>
